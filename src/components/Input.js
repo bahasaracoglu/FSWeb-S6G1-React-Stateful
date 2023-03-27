@@ -11,6 +11,7 @@ Metnin royalblue veya crimson olacağı, input değerinin uzunluğundan elde edi
 
 ADIM 0:
   Aşağıdaki bileşeni inceleyerek ve state hookunu import ederek başlayın.
+  
 
 ADIM 1:
   'inputDeğeri' ve 'setInputDeğeri' ikili state hookunu oluşturun.
@@ -33,35 +34,45 @@ ADIM 6:
   <input /> öğesine şu şekilde fazladan bir prop eklememiz gerekiyor: value={inputDeğeri}
 */
 
-import React from 'react'; /* ADIM 0 */
+import React from "react"; /* ADIM 0 */
+import { useState } from "react";
 
 export default function Input() {
   /* ADIM 1 */
-	
-  const inputuDeğiştir = evt => {
+  const [inputDegeri, setInputDegeri] = useState("");
+
+  const inputuDeğiştir = (evt) => {
     // When the input changes, its whole value can be found inside the event object.
     // Log out the synthetic event object 'evt' and see for yourself.
     const { value } = evt.target;
-	
+    setInputDegeri(value);
+
     /* ADIM 4 */
   };
   const reset = () => {
     /* ADIM 5 */
+    setInputDegeri("");
   };
 
   const stil = {
-    fontSize: '1.5em',
-    marginBottom: '0.3em',
-    color: 'crimson', /* ADIM 2 */
+    fontSize: "1.5em",
+    marginBottom: "0.3em",
+    color: inputDegeri.length > 10 ? "crimson" : "royalblue" /* ADIM 2 */,
   };
 
   return (
-    <div className='widget-input container'>
+    <div className="widget-input container">
       <h2>Input</h2>
-      <div id='output' style={stil}></div> {/* ADIM 3 */}
+      <div id="output" style={stil}>
+        {inputDegeri.toUpperCase()}
+      </div>{" "}
+      {/* ADIM 3 */}
       <div>
-		<input id='input' type='text' onChange={inputuDeğiştir} /> {/* ADIM 6 */}
-        <button id='resetInput' onClick={reset}>Reset</button>
+        <input id="input" type="text" onChange={inputuDeğiştir} />{" "}
+        {/* ADIM 6 */}
+        <button id="resetInput" onClick={reset}>
+          Reset
+        </button>
       </div>
     </div>
   );
